@@ -65,7 +65,6 @@ public class S3Controller extends AbstractBaseController {
 			response.setStatus("ERROR");
 			response.setMessage("Image uploaded error.");
 			response.setDevMessage(e.getMessage());
-			notifyServerError(request, e);
 		}
 		return response;
 	}
@@ -95,7 +94,6 @@ public class S3Controller extends AbstractBaseController {
 			response.setStatus("ERROR"());
 			response.setMessage("Image listing error.");
 			response.setDevMessage(e.getMessage());
-			notifyServerError(request, e);
 		}
 		return response;
 	}
@@ -122,7 +120,9 @@ public class S3Controller extends AbstractBaseController {
 				response.flushBuffer();
 				log.debug("Image downloaded:" + fileName);
 			} catch (Exception e) {
-				notifyServerError(request, e);
+				response.setStatus("ERROR");
+				response.setMessage("Image uploaded error.");
+				response.setDevMessage(e.getMessage());
 			}
 		}
 		return res;
@@ -148,7 +148,6 @@ public class S3Controller extends AbstractBaseController {
 			response.setStatus("ERROR");
 			response.setMessage("Error deleting file: " + fileName + ". Please check all parameter values.");
 			response.setDevMessage(e.getMessage());
-			notifyServerError(request, e);
 		}
 		return response;
 	}
@@ -172,7 +171,6 @@ public class S3Controller extends AbstractBaseController {
 			response.setStatus("ERROR");
 			response.setMessage("Error deleting images. Please check all parameter values.");
 			response.setDevMessage(e.getMessage());
-			notifyServerError(request, e);
 		}
 		return response;
 	}
