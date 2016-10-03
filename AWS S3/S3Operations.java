@@ -136,12 +136,6 @@ public class S3Operations {
 			Map<String, String> map = new HashMap<>();
 			String key = s3.getKey();
 			map.put("name", key.substring(key.lastIndexOf("/") + 1, key.length()));
-			Date date = s3.getLastModifiedDate();
-			LocalDateTime newDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-			map.put("lastModified",
-					newDateTime.format(DateTimeFormatter.ofPattern(Constants.DEFAULT_DATE_LONG_FORMAT)));
-			map.put(DATETIME, newDateTime.format(DateTimeFormatter.ofPattern(Constants.DATETIME_FORMAT_mm_dd_yyyy)));
-			map.put("day", newDateTime.getDayOfWeek().toString());
 			lstDocs.add(map);
 		});
 		finalMap.put("totalCount", Long.toString(count));
